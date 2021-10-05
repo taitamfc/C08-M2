@@ -1,0 +1,31 @@
+- Trình bày được cơ chế kế thừa
+	Là cơ chế cho phép lớp con sử dụng lại các thuộc tính và phương thức của lớp cha.
+	PHP không hỗ trợ tính đa kế thừa
+
+- Triển khai được cơ chế kế thừa giữa các lớp
+	demo01.php
+
+- Trình bày được cơ chế ghi đè phương thức
+	Là cách triển khai lại phương thức đó ở lớp con
+	Phương thức của lớp con nên có cùng tên, cùng danh sách tham số và kiểu dữ liệu trả về 
+	Dùng từ khóa parent để gọi các thuộc tính và phương thức của lớp cha trong lúc ghi đè
+
+	Phương thức ở lớp con phải có access modifier có level bằng hoặc cao hơn so với phương thức ở lớp cha
+
+- Triển khai được cơ chế ghi đè phương thức
+	Triển khai lại các phương thức của lớp cha tại lớp con
+	Thay đổi mức độ truy cập ( access modifier ) của phương thức tại lớp cha
+
+- Biểu diễn được mối quan hệ kế thừa bằng các ký hiệu
+	A -> B -> C
+- Trình bày được ý nghĩa của từ khoá final
+	Từ khóa final ngăn ngừa sự ghi đè từ lớp con
+	Final class => ko thể kế thừa class đó
+	Final function => ko thể ghi đè phương thức đó
+
+- Vòng đời của một đối tượng
+	__construct
+	methods
+	__destruct
+	
+
