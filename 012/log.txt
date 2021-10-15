@@ -1,0 +1,9 @@
+hey bro! There is a error at file <b>D:\xampp\htdocs\PHP\C08\C08-M2\012\index.php</b> at line <b>18</b> with message <b>B is invalid !</b>
+
+hey bro! There is a error at file <b>D:\xampp\htdocs\PHP\C08\C08-M2\012\index.php</b> at line <b>18</b> with message <b>B is invalid !</b>
+
+hey bro! There is a error at file <b>D:\xampp\htdocs\PHP\C08\C08-M2\012\index.php</b> at line <b>18</b> with message <b>B is invalid !</b>
+
+hey bro! There is a error at file <b>D:\xampp\htdocs\PHP\C08\C08-M2\012\index.php</b> at line <b>18</b> with message <b>B is invalid !</b>
+
+hey bro! There is a error at file <b>D:\xampp\htdocs\PHP\C08\C08-M2\012\index.php</b> at line <b>18</b> with message <b>B is invalid !</b>

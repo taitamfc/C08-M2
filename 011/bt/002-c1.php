@@ -76,14 +76,14 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ){
 	}
 
 	//In ra câu đoán
-	// if( isset( $_SESSION['orgin_numbers'] ) ){
-	// 	$orgin_numbers 	= $_SESSION['orgin_numbers'];
-	// 	$L 				= $_SESSION['L'];//5
-	// 	$R 				= $_SESSION['R'];//9
-	// 	$M 				= floor( ( $R + $L ) / 2 ) ;
-	// 	$guest_number = $the_numbers[$M];
-	// 	$question = 'Có phải là số '.$guest_number.' hay không ?';
-	// }
+	if( isset( $_SESSION['orgin_numbers'] ) ){
+		$orgin_numbers 	= $_SESSION['orgin_numbers'];
+		$L 				= $_SESSION['L'];//5
+		$R 				= $_SESSION['R'];//9
+		$M 				= floor( ( $R + $L ) / 2 ) ;
+		$guest_number = $the_numbers[$M];
+		$question = 'Có phải là số '.$guest_number.' hay không ?';
+	}
 }
 
 echo '<pre>';
