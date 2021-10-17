@@ -1,12 +1,8 @@
 <?php
 	session_start();
-	$json_users = file_get_contents('user.json');
-    if( $json_users ){
-        $users = json_decode($json_users);
-    }else{
-        $users = [];
-    }
-
+	include_once './classes/User.php';
+	$objUser = new User();
+	$users   = $objUser->getAll();
 
     $errors     = [];
     $alert 		= '';

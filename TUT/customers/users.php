@@ -1,17 +1,19 @@
 <?php
    session_start();
-   $json_users = file_get_contents('user.json');
-   if( $json_users ){
-      $users = json_decode($json_users);
-   }else{
-      $users = [];
+   include_once './classes/User.php';
+   $objUser = new User();
+   $users   = $objUser->getAll();
+
+   $alert   = ( isset( $_SESSION['alert'] ) && !empty($_SESSION['alert']) ) ? $_SESSION['alert'] : '';
+
+
+   $userLogin = ( isset( $_SESSION['user'] ) ) ? $_SESSION['user'] : '';
+   if( !$userLogin ){
+      header("Location: login.php");
+      die();
    }
 
-   $user = ( isset( $_SESSION['user'] ) ) ? $_SESSION['user'] : '';
 
-   // echo '<pre>';
-   // print_r($users);
-   // echo '</pre>';
 ?>
 
 <?php include 'layouts/header.php'; ?>
@@ -19,10 +21,18 @@
          <div class="row">
             <div class="col-lg-12">
                <h3 class="text-center">Users</h3>
-               <?php if( $user ):?>
-               <div class="alert alert-success" role="alert">
-                 Xin chào, <?= $user->username;?>
-               </div>
+               <?php if( $userLogin ):?>
+                  <p class="text-center">Xin chào, <?= $userLogin->username;?></p>
+               <?php endif;?>
+
+               <?php if( $alert ):?>
+                  <div class="alert alert-success" role="alert">
+                    <?= $alert; ?>
+
+                    <?php 
+                     unset( $_SESSION['alert'] );
+                    ?>
+                  </div>
                <?php endif;?>
             </div>
          </div>
@@ -38,21 +48,30 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <?php foreach ($users as $key => $user): ?>
-                     <tr>
-                        <th scope="row"><?= $key + 1;?></th>
-                        <td><?= $user->username; ?></td>
-                        <td><?= $user->email; ?></td>
-                        <td>
-                           <a href="" class="btn btn-info">Edit</a>
-                           <a href="" class="btn btn-danger">Delete</a>
-                        </td>
-                     </tr>      
-                     <?php endforeach; ?>
+                     <?php 
+
+                     if( count($users) > 0 ): ?>
+                        <?php foreach ($users as $key => $user): ?>
+                        <tr>
+                           <th scope="row"><?= $user->id; ?></th>
+                           <td><?= $user->username; ?></td>
+                           <td><?= $user->email; ?></td>
+                           <td>
+                              <a href="user-edit.php?id=<?= $user->id; ?>" class="btn btn-info">Edit</a>
+                              <a 
+                                 href="user-delete.php?id=<?= $user->id; ?>" 
+                                 class="btn btn-danger"
+                                 onclick=" return confirm('Bạn có chắc chắn muốn xóa không ?') "
+                                 >Delete</a>
+                           </td>
+                        </tr>      
+                        <?php endforeach; ?>
+                     <?php endif; ?>
                      
                   </tbody>
                </table>
             </div>
          </div>
       </div>
-<?php include 'layouts/footer.php'; ?>  
+<?php include 'layouts/footer.php'; ?> 
+

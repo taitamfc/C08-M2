@@ -1,15 +1,5 @@
 <?php
-   class User {
-      public $username;
-      public $email;
-      public $password;
-
-      // public function save(){
-
-      // }
-
-   }
-
+   include_once './classes/User.php';
    $errors     = [];
    $show_alert = ( isset( $_REQUEST['show_alert'] ) ) ? $_REQUEST['show_alert'] : 0;
    if( $_SERVER['REQUEST_METHOD'] == 'POST' ){
@@ -43,20 +33,8 @@
          $objUser->email      = $email;
          $objUser->password   = $password;
 
-         $json_users = file_get_contents('user.json');
-         if( $json_users ){
-            $users = json_decode($json_users);
-         }else{
-            $users = [];
-         }
-
-         //push to users array
-         $users[] = $objUser;
-
-         //convert to json string
-         $users = json_encode($users);
-         file_put_contents( 'user.json', $users );
-
+         $objUser->store();
+         
          //redirect to login page
          header("Location: register.php?show_alert=1");
 
