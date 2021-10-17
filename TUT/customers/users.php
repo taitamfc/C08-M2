@@ -3,6 +3,14 @@
    include_once './classes/User.php';
    $objUser = new User();
    $users   = $objUser->getAll();
+   
+   /*
+   if( isset( $_REQUEST['alert'] )  && !empty($_SESSION['alert']) ){
+      $alert = $_REQUEST['alert'];
+   }else{
+      $alert =  '';
+   }
+   */
 
    $alert   = ( isset( $_SESSION['alert'] ) && !empty($_SESSION['alert']) ) ? $_SESSION['alert'] : '';
 
