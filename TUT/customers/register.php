@@ -1,6 +1,15 @@
 <?php
    include_once './classes/User.php';
    $errors     = [];
+   
+   /*
+   if( isset( $_REQUEST['show_alert'] ) ){
+      $show_alert = $_REQUEST['show_alert'];
+   }else{
+      $show_alert =  0;
+   }   
+   */
+   
    $show_alert = ( isset( $_REQUEST['show_alert'] ) ) ? $_REQUEST['show_alert'] : 0;
    if( $_SERVER['REQUEST_METHOD'] == 'POST' ){
       /*
