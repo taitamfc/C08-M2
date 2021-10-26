@@ -1,6 +1,7 @@
 <?php
    include_once './classes/User.php';
    $errors     = [];
+   include_once './db.php';
    
    /*
    if( isset( $_REQUEST['show_alert'] ) ){
@@ -23,6 +24,7 @@
       $username   = $_REQUEST['username'];
       $email      = $_REQUEST['email'];
       $password   = $_REQUEST['password'];
+      $class_name = $_REQUEST['class_name'];
 
       if( $username == '' ){
          $errors['username'] = 'Username is required field !';
@@ -37,12 +39,25 @@
       }
 
       if( count($errors) == 0 ){
-         $objUser = new User();
-         $objUser->username   = $username;
-         $objUser->email      = $email;
-         $objUser->password   = $password;
 
-         $objUser->store();
+         // echo '<pre>';
+         // print_r($_REQUEST);
+         // die();
+
+         $sql = "INSERT INTO students 
+         (name,class_name,email,password)
+         VALUES
+         ( '".$username."' , '".$class_name."', '".$email."', '".$password."' )
+         ";
+
+         $connect->query( $sql );
+
+         // $objUser = new User();
+         // $objUser->username   = $username;
+         // $objUser->email      = $email;
+         // $objUser->password   = $password;
+
+         // $objUser->store();
          
          //redirect to login page
          header("Location: register.php?show_alert=1");
@@ -75,6 +90,13 @@
                            echo $errors['username'];
                         }
                      ?>
+                  </small>
+               </div>
+               <div class="form-group">
+                  <label >Class Name</label>
+                  <input type="text" class="form-control" placeholder="class_name" name="class_name">
+                  <small class="form-text text-danger">
+                     <?php echo ( isset( $errors['class_name'] ) ) ? $errors['class_name'] : '';  ?>
                   </small>
                </div>
                <div class="form-group">

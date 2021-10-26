@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	include_once './db.php';
 	/*
 	if( isset($_REQUEST['id']) ){
 		if( !empty( $_REQUEST['id'] ) ){
@@ -19,7 +18,7 @@
 
     $stmt   = $connect->query( $sql );
     $stmt->setFetchMode(PDO::FETCH_OBJ);
-    $user    = $stmt->fetch();
+    $row    = $stmt->fetch();
 
    
 
@@ -30,33 +29,35 @@
 	      /*
 	      Array
 	      (
-	          [name] => admin
-	          [class_name] => admin@gmail.com
+	          [username] => admin
+	          [email] => admin@gmail.com
 	          [password] => 123456
 	      )
 	      */
-	      $name   = $_REQUEST['name'];
-	      $class_name      = $_REQUEST['class_name'];
-	      
+	      $username   = $_REQUEST['username'];
+	      $email      = $_REQUEST['email'];
+	      $password   = $_REQUEST['password'];
 
-	      if( $name == '' ){
-	         $errors['name'] = 'Name is required field !';
+	      if( $username == '' ){
+	         $errors['username'] = 'Username is required field !';
 	      }
 
-	      if( $class_name == '' ){
-	         $errors['class_name'] = 'Class Name is required field !';
+	      if( $email == '' ){
+	         $errors['email'] = 'Email is required field !';
 	      }
 
+	      if( $password == '' ){
+	         $errors['password'] = 'Password is required field !';
+	      }
 
 	      if( count($errors) == 0 ){
-	         
-	         $sql = "UPDATE students SET 
-	         	name = '".$name."',
-	         	class_name = '".$class_name."'
-	         	WHERE id = ".$id."
-	         ";
-	         $connect->query( $sql );
-	         
+	         $objUser = new User();
+	         $data = [
+	         	'username' 	=> $username,
+	         	'email' 	=> $email,
+	         	'password' 	=> $password,
+	         ];
+	         $objUser->update( $id, $data );
 
 	         $_SESSION['alert'] = 'Cập nhật thành công';
 
@@ -71,8 +72,8 @@
 	stdClass Object
 	(
 	    [id] => 1634443260
-	    [name] => Nguyễn Văn C
-	    [class_name] => c@gmail.com
+	    [username] => Nguyễn Văn C
+	    [email] => c@gmail.com
 	    [password] => 123456
 	)
     */
@@ -98,24 +99,30 @@
          <div class="col-lg-12">
             <form action="" method="POST">
                <div class="form-group">
-                  <label >Name</label>
-                  <input type="text" class="form-control" placeholder="Name" name="name" value="<?= $user->name; ?>">
+                  <label >Username</label>
+                  <input type="text" class="form-control" placeholder="Username" name="username" value="<?= $user->username; ?>">
                   <small class="form-text text-danger">
                      <?php 
-                        if( isset( $errors['name'] ) ){
-                           echo $errors['name'];
+                        if( isset( $errors['username'] ) ){
+                           echo $errors['username'];
                         }
                      ?>
                   </small>
                </div>
                <div class="form-group">
-                  <label >Class Name</label>
-                  <input type="text" class="form-control" placeholder="Class Name" name="class_name" value="<?= $user->class_name; ?>">
+                  <label >Email</label>
+                  <input type="email" class="form-control" placeholder="Email" name="email" value="<?= $user->email; ?>">
                   <small class="form-text text-danger">
-                     <?php echo ( isset( $errors['class_name'] ) ) ? $errors['class_name'] : '';  ?>
+                     <?php echo ( isset( $errors['email'] ) ) ? $errors['email'] : '';  ?>
                   </small>
                </div>
-               
+               <div class="form-group">
+                  <label >Password</label>
+                  <input type="password" class="form-control" placeholder="Password" name="password">
+                  <small class="form-text text-danger">
+                     <?= ( isset( $errors['password'] ) ) ? $errors['password'] : '';  ?>
+                  </small>
+               </div>
                <button type="submit" class="btn btn-primary">Update</button>
             </form>
          </div>

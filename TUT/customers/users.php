@@ -1,16 +1,18 @@
 <?php
    session_start();
    include_once './classes/User.php';
-   $objUser = new User();
-   $users   = $objUser->getAll();
-   
-   /*
-   if( isset( $_REQUEST['alert'] )  && !empty($_SESSION['alert']) ){
-      $alert = $_REQUEST['alert'];
-   }else{
-      $alert =  '';
-   }
-   */
+   include_once './db.php';
+
+   $sql = 'SELECT * FROM students';
+   //thực hiện truy vấn
+   $stmt  = $connect->query( $sql );
+
+   //tùy chọn kiểu trả về
+   $stmt->setFetchMode(PDO::FETCH_OBJ);
+
+   //lấy tất cả kết quả
+   $users   = $stmt->fetchAll();
+
 
    $alert   = ( isset( $_SESSION['alert'] ) && !empty($_SESSION['alert']) ) ? $_SESSION['alert'] : '';
 
@@ -62,8 +64,8 @@
                         <?php foreach ($users as $key => $user): ?>
                         <tr>
                            <th scope="row"><?= $user->id; ?></th>
-                           <td><?= $user->username; ?></td>
-                           <td><?= $user->email; ?></td>
+                           <td><?= $user->name; ?></td>
+                           <td><?= $user->class_name; ?></td>
                            <td>
                               <a href="user-edit.php?id=<?= $user->id; ?>" class="btn btn-info">Edit</a>
                               <a 
